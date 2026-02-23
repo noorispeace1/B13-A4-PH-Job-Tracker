@@ -1,6 +1,10 @@
 let BcImNotUseAi = [];
 let MrJykPch = [];
 let currentStatus = 'all';
+let rejectedSection = document.getElementById('rejected')
+
+
+
 
 let total = document.getElementById('total');
 let interviewCount = document.getElementById('interviewCount');
@@ -40,11 +44,16 @@ function toggleStyle(id) {
     if (id == 'interview-filter-btn') {
         allCardSection.classList.add('hidden');
         filterSection.classList.remove('hidden');
+        rejectedSection.classList.add('hidden')
         renderInterview();
     } else if (id == 'all-filter-btn') {
         allCardSection.classList.remove('hidden');
         filterSection.classList.add('hidden');
+                rejectedSection.classList.add('hidden')
+
     } else if (id == 'rejected-filter-btn') {
+       rejectedSection.classList.add('hidden')
+
         allCardSection.classList.add('hidden');
         filterSection.classList.remove('hidden');
         renderRejected();
@@ -146,6 +155,14 @@ function renderInterview() {
 
 function renderRejected() {
     filterSection.innerHTML = '';
+    if(MrJykPch.length == 0){
+        filterSection.classList.add('hidden')
+        rejectedSection.classList.remove('hidden')
+    }
+    if(BcImNotUseAi.length == 0){
+        filterSection.classList.add('hidden')
+        rejectedSection.classList.remove('hidden')
+    }
     for (let item of MrJykPch) {
         let div = document.createElement('div');
         div.className = 'card flex justify-between border p-8';
@@ -172,4 +189,5 @@ function renderRejected() {
         `;
         filterSection.appendChild(div);
     }
+
 }
