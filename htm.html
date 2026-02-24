@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header class="w-[80%] mx-auto py-4">
+        <h1 class="text-2xl font-bold text-black-500 ">Job Application Tracker</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-white p-4 shadow">
+                <p class="text-black">Total</p>
+                <p id="total" class="text-black">0</p>
+            </div>
+
+            <div class="p-4 text-black shadow">
+                <p>Interview</p>
+                <p id="interviewCount" class="text-red-600">0</p>
+            </div>
+
+            <div class="shadow p-4">
+                <p>Rejected</p>
+                <p id="rejectedCount" class="text-green-500">0</p>
+            </div>
+        </div>
+    </header>
+    <div class="w-[80%] text-4xl text mx-auto py-6 flex justify-between">
+        <h2>Job Available</h2>
+
+        <h3 class="text-2xl">8 jobs</h3>
+
+
+    </div>
+    <main class="w-[80%] mx-auto">
+        <div class="mb-6">
+            <button onclick="toggleStyle('all-filter-btn')" class="bg-black text-white px-5 py-2 "
+                id="all-filter-btn">All</button>
+            <button onclick="toggleStyle('interview-filter-btn')" class="bg-gray-300 px-5 py-2 "
+                id="interview-filter-btn">Interview</button>
+            <button onclick="toggleStyle('rejected-filter-btn')" class="bg-gray-300 px-5 py-2 "
+                id="rejected-filter-btn">Rejected</button>
+        </div>
+ <!-- job no Available -->
+<div class="flex items-center justify-center p-4">
+    
+    <div class="max-w-xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-6 md:p-8 shadow-xl" id="rejected">
+        
+        <div class="flex flex-col md:flex-row items-center gap-6">
+            
+            <div class="flex-shrink-0">
+                <div class="relative">
+                    <div class="absolute inset-0 blur-lg opacity-20 bg-[#e2c08d] rounded-full"></div>
+                    <div class="relative text-[#e2c08d] text-5xl">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-white font-bold text-2xl tracking-tight mb-1 uppercase italic">
+                    Access Denied
+                </h2>
+                
+                <p class="text-gray-400 text-sm md:text-base leading-snug mb-5">
+                    Job is <span class="text-[#e2c08d]">unavailable</span> or may have been moved.
+                </p>
+
+                <div class="flex items-center justify-center md:justify-start">
+                    <button class="group relative overflow-hidden bg-transparent border border-[#007acc] px-6 py-2 rounded transition-all duration-300 hover:bg-[#007acc]">
+                        <span class="relative z-10 text-[#007acc] group-hover:text-white font-semibold text-xs tracking-widest uppercase">
+                            Open Anyway
+                        </span>
+                        <div class="absolute inset-0 bg-[#007acc] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+                    
+                    <span class="ml-4 text-[10px] text-gray-600 font-mono hidden sm:block">
+                        ERR_404
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+        <!-- Filtered card -->
+
+        <section id="filtered-section" class="hidden">
+
+        </section>
+
+        <section id="allCards" class="space-y-6">
+
+            <!-- card 1 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">Mobile First Corp</p>
+                        <p class="instructor">React Native Developer</p>
+                        <p class="valohyejaomasud">Remote
+                            •
+                            Full-time
+                            •
+                            $130,000 - $175,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn  px-5 py-3 border-gray-300 
+                               bg-white 
+                               hover:bg-green-500 hover:text-white 
+                               hover:shadow-lg hover:scale-105 
+                               transition duration-300 ease-in-out cursor-pointer">
+                        <h1 class=" px-5 py-3 rounded-xl border border-gray-300 
+                               bg-white 
+                               hover:bg-green-500 hover:text-white 
+                               hover:shadow-lg hover:scale-105 
+                               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Build cross-platform mobile applications using React Native. Work on products used
+                        by millions of users worldwide.</p>
+
+                    <div class="ramchagol flex gap-5 ">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+            <!-- card 2 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">WebFlow Agency</p>
+                        <p class="instructor">Web Designer & Developer</p>
+                        <p class="valohyejaomasud">Los Angeles, CA
+                            •
+                            Part-time
+                            •
+                            $80,000 - $120,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Create stunning web experiences for high-profile clients. Must have portfolio and
+                        experience with modern web design trends.</p>
+
+                    <div class="flex gap-5 ramchagol">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+
+            <!-- card 3 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">DataViz Solutions</p>
+                        <p class="instructor">Data Visualization Specialist</p>
+                        <p class="valohyejaomasud">Boston, MA
+                            •
+                            Full-time
+                            •
+                            $125,000 - $165,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Transform complex data into compelling visualizations. Required skills: D3.js,
+                        React, and strong analytical thinking.
+                    </p>
+
+                    <div class="flex gap-5 ramchagol">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+            <!-- card 4 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">CloudFirst Inc</p>
+                        <p class="instructor">Backend Developer</p>
+                        <p class="valohyejaomasud">Seattle, WA
+                            •
+                            Full-time
+                            •
+                            $140,000 - $190,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Design and maintain scalable backend systems using Python and AWS. Work with modern
+                        DevOps practices and cloud infrastructure.</p>
+
+                    <div class="flex gap-5 ramchagol">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+            <!-- card5 -->
+
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">Innovation Labs</p>
+                        <p class="instructor">UI/UX Engineer</p>
+                        <p class="valohyejaomasud">Austin, TX
+                            •
+                            Full-time
+                            •
+                            $110,000 - $150,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Create beautiful and functional user interfaces for our suite of products. Strong
+                        design skills and frontend development expertise required.</p>
+
+                    <div class="flex ramchagol gap-5">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+
+            <!-- card6 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="bambonbtcks text-4xl">MegaCorp Solutions</p>
+                        <p class="instructor">JavaScript Developer</p>
+                        <p>New York, NY
+                            •
+                            Full-time
+                            •
+                            $130,000 - $170,00</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class=" chagol inline-block applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Build enterprise applications with JavaScript and modern frameworks. We offer
+                        competitive compensation, health insurance, and professional development opportunities.</p>
+
+                    <div class="soSad flex gap-5">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+            <!-- card7 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">StartupXYZ</p>
+                        <p class="instructor">Full Stack Engineer</p>
+                        <p class="valohyejaomasud">Remote
+                            •
+                            Full-time
+                            •
+                            $120,000 - $160,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">Join our fast-growing startup and work on our core platform. Experience with
+                        Node.js and React required. Great benefits and equity package included.</p>
+
+                    <div class="flex ramchagol gap-5">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+            <!-- card 8 -->
+            <div class="card flex justify-between shadow p-8">
+                <!-- main part 1 -->
+                <div class="space-y-6">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="mybambonurbtcks text-4xl">TechCorp Industries</p>
+                        <p class="instructor">Senior Frontend Developer</p>
+                        <p class="valohyejaomasud">San Francisco, CA
+                            •
+                            Full-time
+                            •
+                            $130,000 - $175,000</p>
+                    </div>
+
+                    <!-- part 2 -->
+                    <div class="inline-block chagol applyBtn">
+                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
+               bg-white 
+               hover:bg-green-500 hover:text-white 
+               hover:shadow-lg hover:scale-105 
+               transition duration-300 ease-in-out cursor-pointer">
+                            Not applied
+
+                        </h1>
+                    </div>
+                    <!-- part 3 -->
+
+                    <p class="notes">We are looking for an experienced Frontend Developer to build scalable web
+                        applications using React and TypeScript. You will work with a talented team on cutting-edge
+                        projects.</p>
+
+                    <div class="flex ramchagol gap-5">
+                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
+                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    </div>
+                </div>
+
+                <!-- main part 2 -->
+                <div>
+                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
+                            class="fa-solid fa-trash-arrow-up"></i></button>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let BcImNotUseAi = [];
+let MrJykPch = [];
+let currentStatus = 'all';
+let rejectedSection = document.getElementById('rejected')
+
+
+
+
+let total = document.getElementById('total');
+let interviewCount = document.getElementById('interviewCount');
+let rejectedCount = document.getElementById('rejectedCount');
+
+const YouKnowPchMeans = document.getElementById('all-filter-btn');
+const YouArePch = document.getElementById('interview-filter-btn');
+const YouAreThePchMax = document.getElementById('rejected-filter-btn');
+
+const allCardSection = document.getElementById('allCards');
+const mainContainer = document.querySelector('main');
+const filterSection = document.getElementById('filtered-section');
+
+function calculateCount() {
+    total.innerText = allCardSection.children.length;
+    interviewCount.innerText = BcImNotUseAi.length;
+    rejectedCount.innerText = MrJykPch.length;
+}
+
+calculateCount();
+
+function toggleStyle(id) {
+    YouKnowPchMeans.classList.add('bg-gray-300', 'text-black');
+    YouArePch.classList.add('bg-gray-300', 'text-black');
+    YouAreThePchMax.classList.add('bg-gray-300', 'text-black');
+
+    YouKnowPchMeans.classList.remove('bg-black', 'text-white');
+    YouArePch.classList.remove('bg-black', 'text-white');
+    YouAreThePchMax.classList.remove('bg-black', 'text-white');
+
+    const selected = document.getElementById(id); 
+    currentStatus = id;
+
+    selected.classList.remove('bg-gray-300', 'text-black');
+    selected.classList.add('bg-black', 'text-white');
+
+    if (id == 'interview-filter-btn') {
+        allCardSection.classList.add('hidden');
+        filterSection.classList.remove('hidden');
+        rejectedSection.classList.add('hidden')
+        renderInterview();
+    } else if (id == 'all-filter-btn') {
+        allCardSection.classList.remove('hidden');
+        filterSection.classList.add('hidden');
+                rejectedSection.classList.add('hidden')
+
+    } else if (id == 'rejected-filter-btn') {
+       rejectedSection.classList.add('hidden')
+
+        allCardSection.classList.add('hidden');
+        filterSection.classList.remove('hidden');
+        renderRejected();
+    }
+}
+
+
+mainContainer.addEventListener('click', function (event) {
+    
+
+    if (event.target.classList.contains('btn-delete')) {
+        const parentNode = event.target.parentNode.parentNode;
+        const nameToDelete = parentNode.querySelector('.mybambonurbtcks').innerText;
+
+     
+        parentNode.remove();
+
+        
+        BcImNotUseAi = BcImNotUseAi.filter(item => item.mybambonurbtcks !== nameToDelete);
+        MrJykPch = MrJykPch.filter(item => item.mybambonurbtcks !== nameToDelete);
+
+        calculateCount();
+        return; 
+    }
+
+    if (event.target.classList.contains('interview-btn')) {
+        const parentNode = event.target.parentNode.parentNode;
+        const mybambonurbtcks = parentNode.querySelector('.mybambonurbtcks').innerText;
+        const instructor = parentNode.querySelector('.instructor').innerText;
+        const valohyejaomasud = parentNode.querySelector('.valohyejaomasud').innerText;
+        const status = parentNode.querySelector('.chagol').innerText;
+        const notes = parentNode.querySelector('.notes').innerText;
+        const ramchagol = parentNode.querySelector('.ramchagol').innerText;
+
+        parentNode.querySelector('.chagol').innerText = 'interview';
+
+        const cardInfo = { mybambonurbtcks, instructor, valohyejaomasud, chagol: 'interview', notes, ramchagol };
+
+        const itemExist = BcImNotUseAi.find(item => item.mybambonurbtcks == cardInfo.mybambonurbtcks);
+        if (!itemExist) BcImNotUseAi.push(cardInfo);
+
+        MrJykPch = MrJykPch.filter(item => item.mybambonurbtcks != cardInfo.mybambonurbtcks);
+
+        if (currentStatus == 'rejected-filter-btn') renderRejected();
+        calculateCount();
+
+    } else if (event.target.classList.contains('rejected-btn')) { 
+        const parentNode = event.target.parentNode.parentNode;
+        const mybambonurbtcks = parentNode.querySelector('.mybambonurbtcks').innerText;
+        const instructor = parentNode.querySelector('.instructor').innerText;
+        const valohyejaomasud = parentNode.querySelector('.valohyejaomasud').innerText;
+        const status = parentNode.querySelector('.chagol').innerText;
+        const notes = parentNode.querySelector('.notes').innerText;
+        const ramchagol = parentNode.querySelector('.ramchagol').innerText;
+
+        parentNode.querySelector('.chagol').innerText = 'rejected';
+
+        const cardInfo = { mybambonurbtcks, instructor, valohyejaomasud, chagol: 'rejected', notes, ramchagol };
+
+        const itemExist = MrJykPch.find(item => item.mybambonurbtcks == cardInfo.mybambonurbtcks);
+        if (!itemExist) MrJykPch.push(cardInfo);
+
+        BcImNotUseAi = BcImNotUseAi.filter(item => item.mybambonurbtcks != cardInfo.mybambonurbtcks);
+
+        if (currentStatus == 'interview-filter-btn') renderInterview();
+        calculateCount();
+    }
+});
+
+function renderInterview() {
+    filterSection.innerHTML = '';
+    for (let item of BcImNotUseAi) {
+        let div = document.createElement('div');
+        div.className = 'card flex justify-between border p-8';
+        div.innerHTML = `
+            <div class="space-y-6">
+                <div>
+                    <p class="mybambonurbtcks text-4xl">${item.mybambonurbtcks}</p>
+                    <p class="instructor">${item.instructor}</p>
+                </div>
+                <div class="flex gap-2">
+                    <p class="valohyejaomasud bg-gray-200 px-5">${item.valohyejaomasud}</p>
+                    <p class="ramchagol bg-gray-200 px-5">${item.ramchagol}</p>
+                </div>
+                <p class="chagol">${item.chagol}</p>
+                <p class="notes">${item.notes}</p>
+                <div class="flex gap-5">
+                    <button class="interview-btn bg-green-200 px-4 py-2">Interview</button>
+                    <button class="rejected-btn bg-red-200 px-4 py-2">Reject</button>
+                </div>
+            </div>
+            <div>
+                <button class="btn-delete bg-red-200 text-red-600 px-4 py-2">Delete</button>
+            </div>
+        `;
+        filterSection.appendChild(div);
+    }
+}
+
+function renderRejected() {
+    filterSection.innerHTML = '';
+    if(MrJykPch.length == 0){
+        filterSection.classList.add('hidden')
+        rejectedSection.classList.remove('hidden')
+    }
+    if(BcImNotUseAi.length == 0){
+        filterSection.classList.add('hidden')
+        rejectedSection.classList.remove('hidden')
+    }
+    for (let item of MrJykPch) {
+        let div = document.createElement('div');
+        div.className = 'card flex justify-between border p-8';
+        div.innerHTML = `
+            <div class="space-y-6">
+                <div>
+                    <p class="mybambonurbtcks text-4xl">${item.mybambonurbtcks}</p>
+                    <p class="instructor">${item.instructor}</p>
+                </div>
+                <div class="flex gap-2">
+                    <p class="valohyejaomasud bg-gray-200 px-5">${item.valohyejaomasud}</p>
+                    <p class="ramchagol bg-gray-200 px-5">${item.ramchagol}</p>
+                </div>
+                <p class="chagol">${item.chagol}</p>
+                <p class="notes">${item.notes}</p>
+                <div class="flex gap-5">
+                    <button class="interview-btn bg-green-200 px-4 py-2">Interview</button>
+                    <button class="rejected-btn bg-red-200 px-4 py-2">Reject</button>
+                </div>
+            </div>
+            <div>
+                <button class="btn-delete bg-red-200 text-red-600 px-4 py-2">Delete</button>
+            </div>
+        `;
+        filterSection.appendChild(div);
+    }
+
+}

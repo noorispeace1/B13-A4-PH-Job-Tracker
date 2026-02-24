@@ -1,436 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Job Application Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<body class="bg-gray-50">
 
-<body>
     <header class="w-[80%] mx-auto py-4">
-        <h1 class="text-2xl font-bold text-black-500 ">Job Application Tracker</h1>
+        <h1 class="text-2xl font-bold text-black-500 mb-4">Job Application Tracker</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-white p-4 shadow">
-                <p class="text-black">Total</p>
-                <p id="total" class="text-black">0</p>
+            <div class="bg-white p-4 shadow rounded-lg">
+                <p class="text-gray-500">Total</p>
+                <p id="total" class="text-2xl font-bold text-black">0</p>
             </div>
-
-            <div class="p-4 text-black shadow">
-                <p>Interview</p>
-                <p id="interviewCount" class="text-red-600">0</p>
+            <div class="bg-white p-4 shadow rounded-lg">
+                <p class="text-gray-500">Interview</p>
+                <p id="interviewCount" class="text-2xl font-bold text-red-600">0</p>
             </div>
-
-            <div class="shadow p-4">
-                <p>Rejected</p>
-                <p id="rejectedCount" class="text-green-500">0</p>
+            <div class="bg-white p-4 shadow rounded-lg">
+                <p class="text-gray-500">Rejected</p>
+                <p id="rejectedCount" class="text-2xl font-bold text-green-500">0</p>
             </div>
         </div>
     </header>
-    <div class="w-[80%] text-4xl text mx-auto py-6 flex justify-between">
-        <h2>Job Available</h2>
 
-        <h3 class="text-2xl">8 jobs</h3>
-
-
-    </div>
-    <main class="w-[80%] mx-auto">
-        <div class="mb-6">
-            <button onclick="toggleStyle('all-filter-btn')" class="bg-black text-white px-5 py-2 "
-                id="all-filter-btn">All</button>
-            <button onclick="toggleStyle('interview-filter-btn')" class="bg-gray-300 px-5 py-2 "
-                id="interview-filter-btn">Interview</button>
-            <button onclick="toggleStyle('rejected-filter-btn')" class="bg-gray-300 px-5 py-2 "
-                id="rejected-filter-btn">Rejected</button>
-        </div>
- <!-- job no Available -->
-<div class="max-w-md px-6 text-center hidden" id="rejected">
-        <div class="text-[#e2c08d] text-5xl mb-6">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-        </div>
-
-        <p class="font-bold text-6xl leading-relaxed mb-8 font-light">
-       job not Available
-        </p>
-
-        <button class="bg-[#007acc] hover:bg-[#0062a3] text-white text-[13px] px-4 py-1.5 rounded-sm transition duration-200">
-            Open Anyway
-        </button>
+    <div class="w-[80%] text-4xl mx-auto py-6 flex justify-between items-center">
+        <h2 class="font-semibold">Job Available</h2>
+        <h3 id="jobCountText" class="text-2xl font-light">8 jobs</h3>
     </div>
 
+    <main class="w-[80%] mx-auto pb-20">
+        <div class="mb-8 flex gap-2">
+            <button onclick="toggleStyle('all-filter-btn')" class="bg-black text-white px-6 py-2 rounded-md transition duration-200" id="all-filter-btn">All</button>
+            <button onclick="toggleStyle('interview-filter-btn')" class="bg-gray-300 px-6 py-2 rounded-md transition duration-200" id="interview-filter-btn">Interview</button>
+            <button onclick="toggleStyle('rejected-filter-btn')" class="bg-gray-300 px-6 py-2 rounded-md transition duration-200" id="rejected-filter-btn">Rejected</button>
+        </div>
 
+        <div id="no-data-container" class="hidden py-10 flex items-center justify-center">
+            <div class="max-w-xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-8 text-center md:text-left shadow-xl">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 blur-lg opacity-20 bg-[#e2c08d] rounded-full"></div>
+                        <div class="relative text-[#e2c08d] text-5xl">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-white font-bold text-2xl tracking-tight mb-1 uppercase italic italic">Access Denied</h2>
+                        <p class="text-gray-400 text-sm leading-snug mb-5">
+                            No job applications found in this category. They might have been moved or not yet assigned.
+                        </p>
+                        <button onclick="toggleStyle('all-filter-btn')" class="group relative overflow-hidden bg-transparent border border-[#007acc] px-6 py-2 rounded transition-all duration-300 hover:bg-[#007acc]">
+                            <span class="relative z-10 text-[#007acc] group-hover:text-white font-semibold text-xs tracking-widest uppercase">Go to Dashboard</span>
+                            <div class="absolute inset-0 bg-[#007acc] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-        <!-- Filtered card -->
-
-        <section id="filtered-section" class="hidden">
-
-        </section>
+        <section id="filtered-section" class="hidden space-y-6"></section>
 
         <section id="allCards" class="space-y-6">
-
-            <!-- card 1 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
+            
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
                 <div class="space-y-6">
-                    <!-- part 1 -->
                     <div>
-                        <p class="mybambonurbtcks text-4xl">Mobile First Corp</p>
-                        <p class="instructor">React Native Developer</p>
-                        <p class="valohyejaomasud">Remote
-                            •
-                            Full-time
-                            •
-                            $130,000 - $175,000</p>
+                        <p class="mybambonurbtcks text-4xl font-bold">Mobile First Corp</p>
+                        <p class="instructor text-xl text-gray-600">React Native Developer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Remote • Full-time • $130,000 - $175,000</p>
                     </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn  px-5 py-3 border-gray-300 
-                               bg-white 
-                               hover:bg-green-500 hover:text-white 
-                               hover:shadow-lg hover:scale-105 
-                               transition duration-300 ease-in-out cursor-pointer">
-                        <h1 class=" px-5 py-3 rounded-xl border border-gray-300 
-                               bg-white 
-                               hover:bg-green-500 hover:text-white 
-                               hover:shadow-lg hover:scale-105 
-                               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
                     </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Build cross-platform mobile applications using React Native. Work on products used
-                        by millions of users worldwide.</p>
-
-                    <div class="ramchagol flex gap-5 ">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    <p class="notes text-gray-600 italic">Build cross-platform mobile applications using React Native. Work on products used by millions.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
                     </div>
                 </div>
-
-                <!-- main part 2 -->
                 <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
-                </div>
-            </div>
-            <!-- card 2 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
-                <div class="space-y-6">
-                    <!-- part 1 -->
-                    <div>
-                        <p class="mybambonurbtcks text-4xl">WebFlow Agency</p>
-                        <p class="instructor">Web Designer & Developer</p>
-                        <p class="valohyejaomasud">Los Angeles, CA
-                            •
-                            Part-time
-                            •
-                            $80,000 - $120,000</p>
-                    </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
-                    </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Create stunning web experiences for high-profile clients. Must have portfolio and
-                        experience with modern web design trends.</p>
-
-                    <div class="flex gap-5 ramchagol">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
-                    </div>
-                </div>
-
-                <!-- main part 2 -->
-                <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>
 
-            <!-- card 3 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
                 <div class="space-y-6">
-                    <!-- part 1 -->
                     <div>
-                        <p class="mybambonurbtcks text-4xl">DataViz Solutions</p>
-                        <p class="instructor">Data Visualization Specialist</p>
-                        <p class="valohyejaomasud">Boston, MA
-                            •
-                            Full-time
-                            •
-                            $125,000 - $165,000</p>
+                        <p class="mybambonurbtcks text-4xl font-bold">WebFlow Agency</p>
+                        <p class="instructor text-xl text-gray-600">Web Designer & Developer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Los Angeles, CA • Part-time • $80,000 - $120,000</p>
                     </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-                        </h1>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
                     </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Transform complex data into compelling visualizations. Required skills: D3.js,
-                        React, and strong analytical thinking.
-                    </p>
-
-                    <div class="flex gap-5 ramchagol">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    <p class="notes text-gray-600 italic">Create stunning web experiences for high-profile clients with modern web design trends.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
                     </div>
                 </div>
-
-                <!-- main part 2 -->
                 <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
-                </div>
-            </div>
-            <!-- card 4 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
-                <div class="space-y-6">
-                    <!-- part 1 -->
-                    <div>
-                        <p class="mybambonurbtcks text-4xl">CloudFirst Inc</p>
-                        <p class="instructor">Backend Developer</p>
-                        <p class="valohyejaomasud">Seattle, WA
-                            •
-                            Full-time
-                            •
-                            $140,000 - $190,000</p>
-                    </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
-                    </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Design and maintain scalable backend systems using Python and AWS. Work with modern
-                        DevOps practices and cloud infrastructure.</p>
-
-                    <div class="flex gap-5 ramchagol">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
-                    </div>
-                </div>
-
-                <!-- main part 2 -->
-                <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
-                </div>
-            </div>
-            <!-- card5 -->
-
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
-                <div class="space-y-6">
-                    <!-- part 1 -->
-                    <div>
-                        <p class="mybambonurbtcks text-4xl">Innovation Labs</p>
-                        <p class="instructor">UI/UX Engineer</p>
-                        <p class="valohyejaomasud">Austin, TX
-                            •
-                            Full-time
-                            •
-                            $110,000 - $150,000</p>
-                    </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
-                    </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Create beautiful and functional user interfaces for our suite of products. Strong
-                        design skills and frontend development expertise required.</p>
-
-                    <div class="flex ramchagol gap-5">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
-                    </div>
-                </div>
-
-                <!-- main part 2 -->
-                <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>
 
-            <!-- card6 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
                 <div class="space-y-6">
-                    <!-- part 1 -->
                     <div>
-                        <p class="bambonbtcks text-4xl">MegaCorp Solutions</p>
-                        <p class="instructor">JavaScript Developer</p>
-                        <p>New York, NY
-                            •
-                            Full-time
-                            •
-                            $130,000 - $170,00</p>
+                        <p class="mybambonurbtcks text-4xl font-bold">DataViz Solutions</p>
+                        <p class="instructor text-xl text-gray-600">Data Visualization Specialist</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Boston, MA • Full-time • $125,000 - $165,000</p>
                     </div>
-
-                    <!-- part 2 -->
-                    <div class=" chagol inline-block applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
                     </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Build enterprise applications with JavaScript and modern frameworks. We offer
-                        competitive compensation, health insurance, and professional development opportunities.</p>
-
-                    <div class="soSad flex gap-5">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
+                    <p class="notes text-gray-600 italic">Transform complex data into compelling visualizations. Required skills: D3.js, React, and analytical thinking.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
                     </div>
                 </div>
-
-                <!-- main part 2 -->
                 <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
-                </div>
-            </div>
-            <!-- card7 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
-                <div class="space-y-6">
-                    <!-- part 1 -->
-                    <div>
-                        <p class="mybambonurbtcks text-4xl">StartupXYZ</p>
-                        <p class="instructor">Full Stack Engineer</p>
-                        <p class="valohyejaomasud">Remote
-                            •
-                            Full-time
-                            •
-                            $120,000 - $160,000</p>
-                    </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
-                    </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">Join our fast-growing startup and work on our core platform. Experience with
-                        Node.js and React required. Great benefits and equity package included.</p>
-
-                    <div class="flex ramchagol gap-5">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
-                    </div>
-                </div>
-
-                <!-- main part 2 -->
-                <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
-                </div>
-            </div>
-            <!-- card 8 -->
-            <div class="card flex justify-between shadow p-8">
-                <!-- main part 1 -->
-                <div class="space-y-6">
-                    <!-- part 1 -->
-                    <div>
-                        <p class="mybambonurbtcks text-4xl">TechCorp Industries</p>
-                        <p class="instructor">Senior Frontend Developer</p>
-                        <p class="valohyejaomasud">San Francisco, CA
-                            •
-                            Full-time
-                            •
-                            $130,000 - $175,000</p>
-                    </div>
-
-                    <!-- part 2 -->
-                    <div class="inline-block chagol applyBtn">
-                        <h1 class="px-5 py-3 rounded-xl border border-gray-300 
-               bg-white 
-               hover:bg-green-500 hover:text-white 
-               hover:shadow-lg hover:scale-105 
-               transition duration-300 ease-in-out cursor-pointer">
-                            Not applied
-
-                        </h1>
-                    </div>
-                    <!-- part 3 -->
-
-                    <p class="notes">We are looking for an experienced Frontend Developer to build scalable web
-                        applications using React and TypeScript. You will work with a talented team on cutting-edge
-                        projects.</p>
-
-                    <div class="flex ramchagol gap-5">
-                        <button class="interview-btn border bg-white-200 text-green-500 px-4 py-2">Interview</button>
-                        <button class="rejected-btn border bg-white-200 text-red-500 px-4 py-2">Rejected</button>
-                    </div>
-                </div>
-
-                <!-- main part 2 -->
-                <div>
-                    <button class="btn-delete bg-red-200 text-red-600 px-4 py-2 rounded-2xl"><i
-                            class="fa-solid fa-trash-arrow-up"></i></button>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>
 
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
+                <div class="space-y-6">
+                    <div>
+                        <p class="mybambonurbtcks text-4xl font-bold">CloudFirst Inc</p>
+                        <p class="instructor text-xl text-gray-600">Backend Developer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Seattle, WA • Full-time • $140,000 - $190,000</p>
+                    </div>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
+                    </div>
+                    <p class="notes text-gray-600 italic">Design and maintain scalable backend systems using Python and AWS. Work with modern DevOps practices.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
+                <div class="space-y-6">
+                    <div>
+                        <p class="mybambonurbtcks text-4xl font-bold">Innovation Labs</p>
+                        <p class="instructor text-xl text-gray-600">UI/UX Engineer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Austin, TX • Full-time • $110,000 - $150,000</p>
+                    </div>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
+                    </div>
+                    <p class="notes text-gray-600 italic">Create beautiful and functional user interfaces for our products. Strong design and frontend skills required.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
+                <div class="space-y-6">
+                    <div>
+                        <p class="mybambonurbtcks text-4xl font-bold">MegaCorp Solutions</p>
+                        <p class="instructor text-xl text-gray-600">JavaScript Developer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">New York, NY • Full-time • $130,000 - $170,000</p>
+                    </div>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
+                    </div>
+                    <p class="notes text-gray-600 italic">Build enterprise applications with JS and modern frameworks. Competitive compensation and benefits package.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
+                <div class="space-y-6">
+                    <div>
+                        <p class="mybambonurbtcks text-4xl font-bold">StartupXYZ</p>
+                        <p class="instructor text-xl text-gray-600">Full Stack Engineer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">Remote • Full-time • $120,000 - $160,000</p>
+                    </div>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
+                    </div>
+                    <p class="notes text-gray-600 italic">Join our fast-growing startup and work on our core platform. Experience with Node.js and React required.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+
+            <div class="card flex justify-between bg-white shadow-sm border border-gray-100 p-8 rounded-xl">
+                <div class="space-y-6">
+                    <div>
+                        <p class="mybambonurbtcks text-4xl font-bold">TechCorp Industries</p>
+                        <p class="instructor text-xl text-gray-600">Senior Frontend Developer</p>
+                        <p class="valohyejaomasud text-gray-400 font-medium mt-1 uppercase text-xs tracking-wide italic">San Francisco, CA • Full-time • $130,000 - $175,000</p>
+                    </div>
+                    <div class="inline-block chagol">
+                        <h1 class="px-5 py-2 rounded-xl border border-gray-300 bg-white text-sm font-semibold">Not applied</h1>
+                    </div>
+                    <p class="notes text-gray-600 italic">Looking for an experienced Frontend Developer to build scalable apps using React and TypeScript.</p>
+                    <div class="ramchagol flex gap-5">
+                        <button class="interview-btn border border-green-500 text-green-500 hover:bg-green-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Interview</button>
+                        <button class="rejected-btn border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 transition rounded-md font-bold">Rejected</button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-delete bg-red-100 text-red-600 h-10 w-10 flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
 
         </section>
     </main>
 
     <script src="script.js"></script>
 </body>
-
 </html>
